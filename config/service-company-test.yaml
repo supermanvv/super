@@ -1,0 +1,40 @@
+server:
+    servlet:
+        session:
+            timeout: 36000s
+    # 应用端口
+    port: 5602
+    compression:
+        # 开启压缩
+        enabled: true
+        # 压缩最小大小(byte)
+        min-response-size: 524288
+        # 压缩数据类型
+        mime-types: application/json
+spring:
+    thymeleaf:
+        mode: HTML
+        #开启缓存
+        cache: false
+    servlet:
+        multipart:
+            #文件请求最大值
+            max-file-size: 100MB
+            #网络请求最大数据
+            max-request-size: 100MB
+security:
+    oauth2: #cas-server对应的配置
+        client:
+            client-id: dsy
+            client-secret: 123456
+            user-authorization-uri: ${cas-server-url}/oauth/authorize
+            access-token-uri: ${cas-server-url}/oauth/token
+            clientAuthenticationScheme: header
+            scope: all
+            grant-type: client_credentials
+        resource:
+            jwt:
+                key-uri: ${cas-server-url}/oauth/token_key
+            filter-order: 3
+        authorization:
+            check-token-access: ${cas-server-url}/oauth/check_token

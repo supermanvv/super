@@ -1,0 +1,55 @@
+server:
+    servlet:
+        # 应用根目录
+        context-path: /
+    # 应用端口
+    port: 9001
+spring:
+    cloud:
+        gateway:
+            routes:
+            -   id: company-route
+                uri: http://localhost:8702
+                predicates:
+                - Path=/company/**
+                filters:
+                - StripPrefix=1
+            -   id: project-route
+                uri: http://localhost:8701
+                predicates:
+                - Path=/project/**
+                filters:
+                - StripPrefix=1
+            -   id: chat-route
+                uri: http://localhost:8703
+                predicates:
+                - Path=/chat/**
+                filters:
+                - StripPrefix=1
+            -   id: chat-ws-route
+                uri: ws://localhost:8703
+                predicates:
+                - Path=/chat/websocket/**
+                filters:
+                - StripPrefix=1
+            discovery:
+                locator:
+                    # DiscoveryClient gateway integration 网关集成开启
+                    enabled: true
+                    lowerCaseServiceId: true
+            # 跨域
+            globalcors:
+                corsConfigurations:
+                    '[/**]':
+                        allowedHeaders: "*"
+                        allowedOrigins: "*"
+                        exposedHeaders:
+                        - content-type
+                        allowCredentials: true
+                        allowedMethods:
+                        - GET
+                          POST
+                          DELETE
+                          PUT
+                          OPTION
+company-server-url: http://localhost:8702

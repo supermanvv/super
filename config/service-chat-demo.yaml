@@ -1,0 +1,7 @@
+server:
+    # 应用端口
+    port: 8311
+#应用配置
+application:
+    jwt:
+        issuer: bfg-im

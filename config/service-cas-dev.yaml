@@ -1,0 +1,26 @@
+server:
+    servlet:
+        session:
+            timeout: 36000s
+            cookie:
+                name: OAUTH2-SESSIONID #防止Cookie冲突，冲突会导致登录验证不通过
+    # 应用端口
+    port: 8703
+    compression:
+        # 开启压缩
+        enabled: true
+        # 压缩最小大小(byte)
+        min-response-size: 524288
+        # 压缩数据类型
+        mime-types: application/json
+spring:
+    thymeleaf:
+        mode: HTML
+        #开启缓存
+        cache: false
+    servlet:
+        multipart:
+            #文件请求最大值
+            max-file-size: 100MB
+            #网络请求最大数据
+            max-request-size: 100MB

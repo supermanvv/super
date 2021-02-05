@@ -1,0 +1,84 @@
+logging:
+    level:
+        org.springframework.web: INFO
+        org.springframework.security: DEBUG
+        org.springframework.cloud.gateway: DEBUG
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/dsy?useUnicode=true&autoReconnect=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: .net@ML2018!
+        max-idle: 10 #指定连接池最大的空闲连接数量.
+        max-wait: 10000 #指定连接池等待连接返回的最大等待时间，毫秒单位.
+        min-idle: 5 #指定必须保持连接的最小值(For DBCP and Tomcat connection pools)
+        initial-size: 5 #指定启动连接池时，初始建立的连接数量
+        validation-query: SELECT 1 #指定获取连接时连接校验的sql查询语句.
+        test-on-borrow: false #获取连接时候验证，会影响性能
+        test-while-idle: true #当连接空闲时，是否执行连接测试.
+        time-between-eviction-runs-millis: 18800 #指定空闲连接检查、废弃连接清理、空闲连接池大小调整之间的操作时间间隔
+        hikari:
+            maximum-pool-size: 2
+            minimum-idle: 0 #指定必须保持连接的最小值(For DBCP and Tomcat connection pools)
+            connection-test-query: SELECT 1
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.summerframework.orm.ImprovedPhysicalNamingStrategy
+        database-platform: org.hibernate.spatial.dialect.mysql.MySQL5InnoDBSpatialDialect
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+    data:
+        mongodb:
+            uri: mongodb://localhost:27017/dsy
+    redis:
+        database: 11
+        host: localhost
+        port: 6579
+        password:
+        # 连接超时时间 单位 ms（毫秒）
+        timeout: 3000ms
+        jedis:
+            # 连接池中的最大空闲连接，默认值也是8。
+            pool:
+                max-idle: 8
+                #连接池中的最小空闲连接，默认值也是0。
+                min-idle: 0
+                # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
+                max-active: 8
+    activiti:
+        database-schema-update: true
+        history-level: full
+        db-history-used: true
+cas-server-url: http://120.133.136.26:8703
+#在注册中心中进行注册
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:7100/eureka/
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    endpoint:
+        health:
+            show-details: ALWAYS
+application:
+    key:
+        public: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW5As64IuUd4PBus6WVYuaNYUu2rpkZay9musOLEeXHVcbqReRVCZCo4O/OjKC4Ami6scxeJqKvYiVJz09Zan838oxYyRHCMilY5Ysk7uybFW2d2HAc/Th92RW1moVRgirAEkIQPWd50dUH+Wn5erz3OiwkGXeueIv5lpw/sUyewIDAQAB
+        private: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJbkCzrgi5R3g8G6zpZVi5o1hS7aumRlrL2a6w4sR5cdVxupF5FUJkKjg786MoLgCaLqxzF4moq9iJUnPT1lqfzfyjFjJEcIyKVjliyTu7JsVbZ3YcBz9OH3ZFbWahVGCKsASQhA9Z3nR1Qf5afl6vPc6LCQZd654i/mWnD+xTJ7AgMBAAECgYEAlmAENRQM5tRI0aw7MCVm8DNAXJaNRXrysS8P7FsCqb4Kzr0wiJwFWUoeBViZeEaQM/WouEvKMFR9JrApXuPPiHMRUoEKwY74ek/i3Vw//ctyuFtY5flPGOOxnrYe/5CxoXnxQ7hJTuSvuJlVp/UMxUPxSBdseF5/jH/qF2qNzKECQQDaVxb48PkCz2Rsfm8f3ruJUBRu0xdNa5JvJs4UVAmJ3HC7hbn1EOOss3YuiWJw10Gt6WQLVRpnoVTViKW5xuPLAkEAsOqyBOXM6MbIt/uWrvobOj0XidkHnJ0YkZInED5rN6eYkFRkBENNbs/A0vCETR0oHAI2BcNQDwJcoTf89aH2EQJAHKbBBPnaM1wzuWj9/BimU2aGx+Q7cpVjKeLVuCUu+0BKKtFpjZchyU/jekfc+yHEJKYz0qjgRikNkNfVp4NJ8QJBAJUamEJsctBUiOIW1h5OiBgDWQ1CrpmeBRDa/rVABhj31Sr/FPRKzL3xtm+Rac+cHSvN6T3eKGEd+nedukJC6CECQEXuZ79m/bOiNy3VgqzXXXqrBq2tngTgHa7WEHs9h7zoeWmpVEhrTnPcAbSZUzRpVygSNzBS0ic7v+X7EEJHQRY=
+    minio:
+        endpoint: http://120.133.136.26:9000
+        accessKey: minioadmin
+        secretKey: minioadmin
+    jwt:
+        secret: NzRyc05QMHVtTmhxSElKd0dTTlQlJDZOYnMydUl3MGM
+        expiration: 72000
+        issuer: yxtweb
+    weaher-config:
+        url: http://weather01.market.alicloudapi.com
+        appCode: e259b7e59e7c432c884e80e0e59a6336
